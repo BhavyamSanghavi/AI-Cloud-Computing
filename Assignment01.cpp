@@ -11,7 +11,7 @@ void bfsRecursive(int n, vector<vector<int>>& edgelist, queue<int>& q, unordered
             visited.insert(neighbor);
         }
     }
- 
+
     if (!q.empty()) {
         int next_node = q.front();
         q.pop();
@@ -31,15 +31,21 @@ void dfsRec(vector<vector<int>> &adj, vector<bool> &visited, int s){
 
 int main() {
     // Define number of nodes
-    int nodes = 5;
+    int nodes;
+    cout<<"Enter number of nodes:";     cin>>nodes;
 
     // Example: Edge list representation of an undirected graph
     vector<vector<int>> edgelist(nodes);
-    edgelist[0] = {1, 2};
-    edgelist[1] = {0, 3, 4};
-    edgelist[2] = {0};
-    edgelist[3] = {1};
-    edgelist[4] = {1};
+    for(int i=0;i<nodes;i++)
+    {
+        int data=0;
+        do{
+            cout<<"Enter nodes connected with "<<i<<":";
+            cin>>data;
+            if(data!=-1)
+                edgelist[i].push_back(data);
+        }while(data!=-1);
+    }
 
     // Initialize a queue for BFS and a set for tracking visited nodes
     queue<int> q;
