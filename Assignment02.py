@@ -4,7 +4,6 @@ n = 3
 row = [1, 0, -1, 0]  # Directions for movement
 col = [0, -1, 0, 1]
 
-# Function to calculate the number of misplaced tiles
 # h(n)
 def calculateCost(mat, final) -> int:
     count = 0
@@ -47,39 +46,31 @@ def printPath(root):
         return
     printPath(root[4])  # Recursively print the parent node
     printMatrix(root[2])  # Print the matrix
+    print("Level=",root[1], " Cost=",root[0]-root[1], "F(n)=",root[0])      # print level(g(n)) and h(n)
     print()
 
 # Function to solve N*N - 1 puzzle algorithm using Branch and Bound
 def solve(initial, empty_tile_pos, final):
-    # Create a priority queue to store live nodes of the search tree
     pq = []
 
     # Create the root node (cost, level, matrix, empty_tile_pos, parent)
     cost = calculateCost(initial, final)
     root = (cost, 0, initial, empty_tile_pos, None)
 
-    # Add root to list of live nodes
     heapq.heappush(pq, root)
     
-    # While the priority queue is not empty
     while pq:
-        # Find a live node with least estimated cost and pop it from the queue
         minimum = heapq.heappop(pq)
 
-        # If the cost is zero, then we've found the solution
         if minimum[0] == minimum[1]:
             printPath(minimum)
             return
-    # (cost, level, matrix, empty_tile_pos, parent)
-        # Generate all possible children
+        # Generate all possible children (cost, level, matrix, empty_tile_pos, parent)
         for i in range(4):
             new_tile_pos = [minimum[3][0] + row[i], minimum[3][1] + col[i]]
 
             if isSafe(new_tile_pos[0], new_tile_pos[1]):
-                # Create a child node
                 child = newNode(minimum[2], minimum[3], new_tile_pos, minimum[1] + 1, minimum, final)
-
-                # Add child to the priority queue
                 heapq.heappush(pq, child)
 
 initial = [[1, 2, 3],
