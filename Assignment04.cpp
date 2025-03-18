@@ -31,7 +31,6 @@ void dijkstra(int V, vector<vector<pair<int, int>>>& graph, int src) {
             }
         }
     }
-
     // Print the shortest distances from the source vertex
     cout << "Vertex Distance from Source" << endl;
     for (int i = 0; i < V; i++) {
